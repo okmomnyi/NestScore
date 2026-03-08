@@ -26,6 +26,7 @@ class ReviewPublicResponse(BaseModel):
     nickname: str | None = None
     status: str
     flag_count: int
+    disagree_count: int
     publish_at: datetime
     created_at: datetime
     dispute_response: str | None = None
@@ -34,7 +35,7 @@ class ReviewPublicResponse(BaseModel):
 
 
 class FlagSubmit(BaseModel):
-    reason: str = Field(..., pattern="^(offensive|spam|false_claim|other)$")
+    reason: str = Field(..., pattern="^(offensive|spam|false_claim|disagree_vote|other)$")
     fingerprint_hash: str = Field(..., min_length=1, max_length=128)
 
 
