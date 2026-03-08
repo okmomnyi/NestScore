@@ -1,0 +1,39 @@
+# Swahili and Sheng offensive terms for NestScore profanity filter extension.
+# One term per line, all lowercase. This list is not exhaustive.
+malaya
+kahaba
+mnafiki
+mjinga
+mavi
+kuma
+mkundu
+mbwa
+punda
+shenzi
+haga
+shoga
+msenge
+ng'ombe
+kiherehere
+meffi
+takataka
+umbwa
+fisi
+pumbavu
+jinga
+nzoka
+nyang'au
+kichaa
+punguani
+sangara
+shetani
+mbuta
+mzee wa mavi
+bonobo
+chieth
+ghasia
+malaya wa mtaa
+msenge wa mtaa
+paka mwitu
+nyoka
+kondoo

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Disputes</h1>
+<div class="card" style="padding:0;">
+    <table>
+        <thead>
+            <tr>
+                <th>Plot</th>
+                <th>Review</th>
+                <th>Landlord Response</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            {% set dispute = row[0] %}
+            {% set review_text = row[1] %}
+            {% set plot_name = row[2] %}
+            <tr>
+                <td>{{ plot_name }}</td>
+                <td class="truncate">{{ review_text[:80] }}</td>
+                <td class="truncate">{{ dispute.landlord_response_text[:80] }}</td>
+                <td><span class="badge {{ dispute.status }}">{{ dispute.status }}</span></td>
+                <td style="white-space:nowrap;">
+                    <form method="post" action="{{ admin_path }}/disputes/{{ dispute.id }}/dismiss" class="inline">
+                        <input type="hidden" name="admin_note" value="">
+                        <button type="submit" class="btn btn-neutral">Dismiss</button>
+                    </form>
+                    <form method="post" action="{{ admin_path }}/disputes/{{ dispute.id }}/uphold" class="inline">
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Uphold this dispute? The review will be removed.')">Uphold</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="color:#64748b;text-align:center;padding:32px;">No open disputes.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

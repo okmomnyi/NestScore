@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="stats">
+    <div class="stat"><a href="{{ admin_path }}/reviews?status=pending">
+            <div class="num">{{ pending_count }}</div>
+            <div class="lbl">Pending Reviews</div>
+        </a></div>
+    <div class="stat"><a href="{{ admin_path }}/reviews?status=community_flagged">
+            <div class="num">{{ flagged_count }}</div>
+            <div class="lbl">Flagged Reviews</div>
+        </a></div>
+    <div class="stat"><a href="{{ admin_path }}/reviews?status=under_review">
+            <div class="num">{{ under_review_count }}</div>
+            <div class="lbl">Under Review</div>
+        </a></div>
+    <div class="stat"><a href="{{ admin_path }}/disputes">
+            <div class="num">{{ disputes_count }}</div>
+            <div class="lbl">Open Disputes</div>
+        </a></div>
+    <div class="stat"><a href="{{ admin_path }}/suggestions">
+            <div class="num">{{ suggestions_count }}</div>
+            <div class="lbl">Pending Suggestions</div>
+        </a></div>
+    <div class="stat"><a href="{{ admin_path }}/plots">
+            <div class="num">{{ total_plots }}</div>
+            <div class="lbl">Total Plots</div>
+        </a></div>
+    <div class="stat">
+        <div class="num">{{ total_reviews }}</div>
+        <div class="lbl">Total Reviews</div>
+    </div>
+</div>
+<div class="card">
+    <h2>Recent Audit Log</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Type</th>
+                <th>Target ID</th>
+                <th>Note</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in recent_audit %}
+            <tr>
+                <td><span class="badge active">{{ entry.admin_action }}</span></td>
+                <td>{{ entry.target_type }}</td>
+                <td class="truncate">{{ entry.target_id }}</td>
+                <td class="truncate">{{ entry.note or '—' }}</td>
+                <td>{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="color:#64748b;text-align:center;">No audit entries yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Audit Log</h1>
+<div class="card" style="padding:0;">
+    <table>
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Type</th>
+                <th>Target ID</th>
+                <th>Note</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td><span class="badge active">{{ entry.admin_action }}</span></td>
+                <td>{{ entry.target_type }}</td>
+                <td style="font-family:monospace;font-size:0.8rem;">{{ entry.target_id }}</td>
+                <td class="truncate">{{ entry.note or '—' }}</td>
+                <td>{{ entry.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="color:#64748b;text-align:center;padding:32px;">No audit entries.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="padding:16px;display:flex;gap:12px;">
+        {% if page > 1 %}<a href="?page={{ page - 1 }}" class="btn btn-neutral">← Previous</a>{% endif %}
+        <span style="line-height:32px;color:#64748b;">Page {{ page }} of {{ (total // 50) + 1 }}</span>
+        {% if page * 50 < total %}<a href="?page={{ page + 1 }}" class="btn btn-neutral">Next →</a>{% endif %}
+    </div>
+</div>
+{% endblock %}

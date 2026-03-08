@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Plot Management</h1>
+<div class="card">
+    <h2>Add New Plot</h2>
+    <form method="post" action="{{ admin_path }}/plots">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-row">
+                <label>Name</label><input type="text" name="name" required>
+            </div>
+            <div class="form-row">
+                <label>Area</label>
+                <select name="area">
+                    <option>Nchiru</option>
+                    <option>Katheri</option>
+                    <option>Campus-adjacent</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-row" style="grid-column:1/-1">
+                <label>Description</label><textarea name="description" rows="2" required></textarea>
+            </div>
+            <div class="form-row">
+                <label>GPS Latitude</label><input type="number" name="gps_lat" step="any" required
+                    placeholder="-0.053000">
+            </div>
+            <div class="form-row">
+                <label>GPS Longitude</label><input type="number" name="gps_lng" step="any" required
+                    placeholder="37.656000">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Plot</button>
+    </form>
+</div>
+<div class="card" style="padding:0;">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Area</th>
+                <th>Score</th>
+                <th>Reviews</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plot in plots %}
+            <tr>
+                <td>{{ plot.name }}</td>
+                <td>{{ plot.area }}</td>
+                <td>{{ "%.2f"|format(plot.weighted_score) if plot.weighted_score else 'Unrated' }}★</td>
+                <td>{{ plot.total_ratings }}</td>
+                <td><span class="badge {{ plot.status }}">{{ plot.status }}</span></td>
+                <td style="white-space:nowrap;">
+                    <form method="post" action="{{ admin_path }}/plots/{{ plot.id }}/remove" class="inline">
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Remove this plot?')">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="color:#64748b;text-align:center;padding:32px;">No plots found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

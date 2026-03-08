@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Review Queue</h1>
+<div style="margin-bottom:20px;display:flex;gap:8px;">
+    <a href="?status=pending" class="btn btn-primary">Pending</a>
+    <a href="?status=community_flagged" class="btn btn-neutral">Flagged</a>
+    <a href="?status=under_review" class="btn btn-neutral">Under Review</a>
+    <a href="?status=all" class="btn btn-neutral">All</a>
+</div>
+<div class="card" style="padding:0;">
+    <table>
+        <thead>
+            <tr>
+                <th>Plot</th>
+                <th>Stars</th>
+                <th>Preview</th>
+                <th>Status</th>
+                <th>Flags</th>
+                <th>Publish At</th>
+                <th>Submitted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            {% set review = row[0] %}
+            {% set plot_name = row[1] %}
+            <tr>
+                <td>{{ plot_name }}</td>
+                <td>{{ review.stars }}★</td>
+                <td class="truncate">{{ review.comment_text[:100] }}</td>
+                <td><span class="badge {{ review.status }}">{{ review.status }}</span></td>
+                <td>{{ review.flag_count }}</td>
+                <td>{{ review.publish_at.strftime('%m-%d %H:%M') }}</td>
+                <td>{{ review.created_at.strftime('%m-%d %H:%M') }}</td>
+                <td style="white-space:nowrap;">
+                    <form method="post" action="{{ admin_path }}/reviews/{{ review.id }}/approve" class="inline">
+                        <button type="submit" class="btn btn-success">✓ Approve</button>
+                    </form>
+                    <form method="post" action="{{ admin_path }}/reviews/{{ review.id }}/remove" class="inline">
+                        <button type="submit" class="btn btn-danger">✗ Remove</button>
+                    </form>
+                    <form method="post" action="{{ admin_path }}/reviews/{{ review.id }}/clear" class="inline">
+                        <button type="submit" class="btn btn-neutral">Clear</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" style="color:#64748b;text-align:center;padding:32px;">No reviews.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
