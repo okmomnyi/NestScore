@@ -1,12 +1,23 @@
-import { api } from '@/lib/api';
-import HomeClient from '@/components/HomeClient';
-import type { PaginatedPlots, PlotMap } from '@/types';
+export const dynamic = "force-dynamic";
+import { api } from "@/lib/api";
+import HomeClient from "@/components/HomeClient";
+import type { PaginatedPlots, PlotMap } from "@/types";
 
 export default async function Home() {
-  // Server-side render initial plot and map data for SEO and performance
-  const initialPlots: PaginatedPlots = await api.plots.list({ page: 1 });
-  const initialMapPlots: PlotMap[] = await api.plots.map();
+  let initialPlots: PaginatedPlots = { plots: [], total_count: 0, page: 1, per_page: 20 };
+  let initialMapPlots: PlotMap[] = [];
+
+  try {
+    initialPlots = await api.plots.list({ page: 1 });
+  } catch (e) {
+    console.error("Failed to fetch plots:", e);
+  }
+
+  try {
+    initialMapPlots = await api.plots.map();
+  } catch (e) {
+    console.error("Failed to fetch map plots:", e);
+  }
 
   return <HomeClient initialPlots={initialPlots} initialMapPlots={initialMapPlots} />;
 }
-

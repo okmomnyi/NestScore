@@ -11,9 +11,7 @@ export default function Header() {
                     <Link href="/suggest" className="text-sm font-medium text-[#94A3B8] hover:text-[#F1F5F9] transition-colors">
                         Suggest a Plot
                     </Link>
-                    <Link href="/claim" className="text-sm font-medium text-[#94A3B8] hover:text-[#F1F5F9] transition-colors">
-                        Claim Your Plot
-                    </Link>
+
                 </nav>
             </div>
         </header>
