@@ -25,6 +25,13 @@ def validate_csrf_token(token: str, max_age_seconds: int = 60 * 60 * 8) -> bool:
     try:
         _serializer.loads(token, max_age=max_age_seconds)
         return True
-    except (BadSignature, SignatureExpired):
+    except SignatureExpired:
+        print(f"CSRF Token Expired: {token[:20]}...")
+        return False
+    except BadSignature:
+        print(f"CSRF Token Bad Signature: {token[:20]}...")
+        return False
+    except Exception as e:
+        print(f"CSRF Token Error: {e}")
         return False
 

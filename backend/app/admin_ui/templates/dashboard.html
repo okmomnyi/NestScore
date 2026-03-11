@@ -1,63 +1,204 @@
 {% extends "base.html" %}
+{% block title %}Dashboard - NestScore Admin{% endblock %}
 {% block content %}
-<h1>Admin Dashboard</h1>
-<div class="stats">
-    <div class="stat"><a href="{{ admin_path }}/reviews?status=pending">
-            <div class="num">{{ pending_count }}</div>
-            <div class="lbl">Pending Reviews</div>
-        </a></div>
-    <div class="stat"><a href="{{ admin_path }}/reviews?status=community_flagged">
-            <div class="num">{{ flagged_count }}</div>
-            <div class="lbl">Flagged Reviews</div>
-        </a></div>
-    <div class="stat"><a href="{{ admin_path }}/reviews?status=under_review">
-            <div class="num">{{ under_review_count }}</div>
-            <div class="lbl">Under Review</div>
-        </a></div>
-    <div class="stat"><a href="{{ admin_path }}/disputes">
-            <div class="num">{{ disputes_count }}</div>
-            <div class="lbl">Open Disputes</div>
-        </a></div>
-    <div class="stat"><a href="{{ admin_path }}/suggestions">
-            <div class="num">{{ suggestions_count }}</div>
-            <div class="lbl">Pending Suggestions</div>
-        </a></div>
-    <div class="stat"><a href="{{ admin_path }}/plots">
-            <div class="num">{{ total_plots }}</div>
-            <div class="lbl">Total Plots</div>
-        </a></div>
-    <div class="stat">
-        <div class="num">{{ total_reviews }}</div>
-        <div class="lbl">Total Reviews</div>
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-white mb-2">Dashboard</h1>
+  <p class="text-slate-400">Overview of your NestScore platform</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <!-- Pending Reviews -->
+  <a href="{{ admin_path }}/reviews?status=pending" class="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-blue-500 transition group">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-blue-500/10 rounded-lg">
+        <i data-lucide="clock" class="w-6 h-6 text-blue-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ pending_count }}</span>
     </div>
+    <h3 class="text-sm font-medium text-slate-400 group-hover:text-blue-400 transition">Pending Reviews</h3>
+  </a>
+
+  <!-- Flagged Reviews -->
+  <a href="{{ admin_path }}/reviews?status=community_flagged" class="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-orange-500 transition group">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-orange-500/10 rounded-lg">
+        <i data-lucide="flag" class="w-6 h-6 text-orange-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ flagged_count }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400 group-hover:text-orange-400 transition">Flagged Reviews</h3>
+  </a>
+
+  <!-- Under Review -->
+  <a href="{{ admin_path }}/reviews?status=under_review" class="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-yellow-500 transition group">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-yellow-500/10 rounded-lg">
+        <i data-lucide="search" class="w-6 h-6 text-yellow-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ under_review_count }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400 group-hover:text-yellow-400 transition">Under Review</h3>
+  </a>
+
+  <!-- Open Disputes -->
+  <a href="{{ admin_path }}/disputes" class="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-purple-500 transition group">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-purple-500/10 rounded-lg">
+        <i data-lucide="alert-triangle" class="w-6 h-6 text-purple-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ disputes_count }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400 group-hover:text-purple-400 transition">Open Disputes</h3>
+  </a>
+
+  <!-- Pending Suggestions -->
+  <a href="{{ admin_path }}/suggestions" class="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500 transition group">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-green-500/10 rounded-lg">
+        <i data-lucide="lightbulb" class="w-6 h-6 text-green-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ suggestions_count }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400 group-hover:text-green-400 transition">Pending Suggestions</h3>
+  </a>
+
+  <!-- Total Plots -->
+  <a href="{{ admin_path }}/plots" class="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-cyan-500 transition group">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-cyan-500/10 rounded-lg">
+        <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ total_plots }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400 group-hover:text-cyan-400 transition">Total Plots</h3>
+  </a>
+
+  <!-- Total Reviews -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-indigo-500/10 rounded-lg">
+        <i data-lucide="message-square" class="w-6 h-6 text-indigo-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ total_reviews }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400">Total Reviews</h3>
+  </div>
+
+  <!-- Audit Entries -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+    <div class="flex items-center justify-between mb-4">
+      <div class="p-3 bg-slate-500/10 rounded-lg">
+        <i data-lucide="file-text" class="w-6 h-6 text-slate-400"></i>
+      </div>
+      <span class="text-3xl font-bold text-white">{{ audit_count }}</span>
+    </div>
+    <h3 class="text-sm font-medium text-slate-400">Audit Entries</h3>
+  </div>
 </div>
-<div class="card">
-    <h2>Recent Audit Log</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Action</th>
-                <th>Type</th>
-                <th>Target ID</th>
-                <th>Note</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in recent_audit %}
-            <tr>
-                <td><span class="badge active">{{ entry.admin_action }}</span></td>
-                <td>{{ entry.target_type }}</td>
-                <td class="truncate">{{ entry.target_id }}</td>
-                <td class="truncate">{{ entry.note or '—' }}</td>
-                <td>{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="5" style="color:#64748b;text-align:center;">No audit entries yet.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+
+<!-- Quick Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+  <!-- Recalculate Scores -->
+  <div class="bg-gradient-to-br from-blue-900/20 to-blue-800/10 border border-blue-800/50 rounded-xl p-6">
+    <div class="flex items-start gap-4">
+      <div class="p-3 bg-blue-500/20 rounded-lg">
+        <i data-lucide="refresh-cw" class="w-6 h-6 text-blue-400"></i>
+      </div>
+      <div class="flex-1">
+        <h3 class="text-lg font-semibold text-white mb-2">Recalculate All Plot Scores</h3>
+        <p class="text-sm text-slate-400 mb-4">Update total ratings and weighted scores for all plots. Use this after bulk data imports or when scores seem inconsistent.</p>
+        <form method="post" action="{{ admin_path }}/recalculate-all" x-data="{ loading: false }" @submit="loading = true">
+          <button type="submit" :disabled="loading" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white rounded-lg font-medium transition flex items-center gap-2">
+            <i data-lucide="play" class="w-4 h-4" x-show="!loading"></i>
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" x-show="loading" x-cloak>
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span x-text="loading ? 'Running...' : 'Run Recalculation'"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Stats -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="p-3 bg-slate-800 rounded-lg">
+        <i data-lucide="activity" class="w-6 h-6 text-slate-400"></i>
+      </div>
+      <h3 class="text-lg font-semibold text-white">System Health</h3>
+    </div>
+    <div class="space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-slate-400">Database</span>
+        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded">Connected</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-slate-400">Redis Cache</span>
+        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-medium rounded">Offline</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-slate-400">API Status</span>
+        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded">Operational</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+      <i data-lucide="activity" class="w-5 h-5 text-blue-400"></i>
+      Recent Audit Log
+    </h2>
+    <a href="{{ admin_path }}/audit" class="text-sm text-blue-400 hover:text-blue-300 transition flex items-center gap-1">
+      View All
+      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+    </a>
+  </div>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="border-b border-slate-800">
+          <th class="text-left py-3 px-4 text-xs font-medium text-slate-400 uppercase tracking-wider">Action</th>
+          <th class="text-left py-3 px-4 text-xs font-medium text-slate-400 uppercase tracking-wider">Type</th>
+          <th class="text-left py-3 px-4 text-xs font-medium text-slate-400 uppercase tracking-wider">Target ID</th>
+          <th class="text-left py-3 px-4 text-xs font-medium text-slate-400 uppercase tracking-wider">Note</th>
+          <th class="text-left py-3 px-4 text-xs font-medium text-slate-400 uppercase tracking-wider">Time</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-800">
+        {% for entry in recent_audit %}
+        <tr class="hover:bg-slate-800/50 transition">
+          <td class="py-3 px-4">
+            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded">{{ entry.admin_action }}</span>
+          </td>
+          <td class="py-3 px-4 text-sm text-slate-300">{{ entry.target_type }}</td>
+          <td class="py-3 px-4 text-sm text-slate-400 font-mono truncate max-w-xs">{{ entry.target_id }}</td>
+          <td class="py-3 px-4 text-sm text-slate-400 truncate max-w-md">{{ entry.note or '—' }}</td>
+          <td class="py-3 px-4 text-sm text-slate-400">{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" class="py-8 text-center text-slate-500">
+            <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+            <p>No audit entries yet</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
+  </div>
 </div>
+
+<script>
+  // Re-initialize icons after Alpine.js loads
+  document.addEventListener('alpine:initialized', () => {
+    lucide.createIcons();
+  });
+</script>
 {% endblock %}

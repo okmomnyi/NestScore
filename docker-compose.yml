@@ -56,7 +56,7 @@ services:
       - .env
     environment:
       NEXT_PUBLIC_API_BASE_URL: http://164.92.173.167:8001
-      INTERNAL_API_BASE_URL: http://nestscore_backend:8000/api
+      INTERNAL_API_BASE_URL: http://nestscore_backend:8000
     ports:
       - "3000:3000"
     depends_on:

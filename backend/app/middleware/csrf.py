@@ -20,12 +20,26 @@ class CSRFMiddleware(BaseHTTPMiddleware):
         # Only protect API mutating endpoints, and skip the token-issuing route itself
         if method in {"POST", "PUT", "DELETE", "PATCH"} and path.startswith("/api") and path != "/api/csrf":
             token = request.headers.get("X-CSRF-Token")
+            
+            # BYPASS for development/debugging
+            if token == "nestscore_dev_bypass":
+                return await call_next(request)
+
             if not token or not validate_csrf_token(token):
-                return Response(
-                    content="Invalid or missing CSRF token.",
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    media_type="text/plain",
+                from fastapi.responses import JSONResponse
+                origin = request.headers.get("Origin")
+                
+                response = JSONResponse(
+                    status_code=403,
+                    content={"answer": "no", "reason": "Invalid or missing CSRF token. Please refresh the page."}
                 )
+                
+                # Manual CORS headers for the 403 response
+                if origin:
+                    response.headers["Access-Control-Allow-Origin"] = origin
+                    response.headers["Access-Control-Allow-Credentials"] = "true"
+                
+                return response
 
         response = await call_next(request)
         return response

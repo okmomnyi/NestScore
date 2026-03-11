@@ -34,7 +34,6 @@ async def submit_review(
     db: AsyncSession = Depends(get_db),
 ):
     raw_ip = request.client.host if request.client else "0.0.0.0"
-    redis = await get_redis()
 
     # 1. Validate Turnstile token
     valid = await turnstile.verify_turnstile_token(body.turnstile_token, raw_ip)
@@ -50,13 +49,19 @@ async def submit_review(
 
     # 3. Rate limit — 3 per IP per hour
     ip_hash = hash_ip(raw_ip, settings.IP_HASH_SALT)
-    allowed, retry_after = await record_review_submission(redis, ip_hash)
-    if not allowed:
-        raise HTTPException(
-            status_code=429,
-            detail="You have submitted too many reviews recently. Please wait before submitting again.",
-            headers={"Retry-After": str(retry_after)},
-        )
+    try:
+        redis = await get_redis()
+        allowed, retry_after = await record_review_submission(redis, ip_hash)
+        if not allowed:
+            raise HTTPException(
+                status_code=429,
+                detail="You have submitted too many reviews recently. Please wait before submitting again.",
+                headers={"Retry-After": str(retry_after)},
+            )
+    except HTTPException:
+        raise
+    except Exception:
+        pass  # Redis unavailable — skip rate limiting
 
     # 4. Server-side fingerprint double-hash
     server_fp_hash = hash_fingerprint(body.fingerprint_hash, settings.FINGERPRINT_SALT)
@@ -118,17 +123,22 @@ async def flag_review(
     db: AsyncSession = Depends(get_db),
 ):
     raw_ip = request.client.host if request.client else "0.0.0.0"
-    redis = await get_redis()
 
     # Rate limit flags
     ip_hash = hash_ip(raw_ip, settings.IP_HASH_SALT)
-    allowed, retry_after = await record_flag_submission(redis, ip_hash)
-    if not allowed:
-        raise HTTPException(
-            status_code=429,
-            detail="You have submitted too many flags recently.",
-            headers={"Retry-After": str(retry_after)},
-        )
+    try:
+        redis = await get_redis()
+        allowed, retry_after = await record_flag_submission(redis, ip_hash)
+        if not allowed:
+            raise HTTPException(
+                status_code=429,
+                detail="You have submitted too many flags recently.",
+                headers={"Retry-After": str(retry_after)},
+            )
+    except HTTPException:
+        raise
+    except Exception:
+        pass  # Redis unavailable — skip rate limiting
 
     # Check review exists and is public
     review_result = await db.execute(
@@ -187,17 +197,22 @@ async def disagree_review(
 ):
     """Adds a disagree to a review (essentially a downvote). Uses the FlagSubmit schema to get fingerprint."""
     raw_ip = request.client.host if request.client else "0.0.0.0"
-    redis = await get_redis()
 
     # Rate limit flags/disagrees together to prevent spam
     ip_hash = hash_ip(raw_ip, settings.IP_HASH_SALT)
-    allowed, retry_after = await record_flag_submission(redis, ip_hash)
-    if not allowed:
-        raise HTTPException(
-            status_code=429,
-            detail="You are performing this action too quickly.",
-            headers={"Retry-After": str(retry_after)},
-        )
+    try:
+        redis = await get_redis()
+        allowed, retry_after = await record_flag_submission(redis, ip_hash)
+        if not allowed:
+            raise HTTPException(
+                status_code=429,
+                detail="You are performing this action too quickly.",
+                headers={"Retry-After": str(retry_after)},
+            )
+    except HTTPException:
+        raise
+    except Exception:
+        pass  # Redis unavailable — skip rate limiting
 
     # Check review exists and is active
     review_result = await db.execute(

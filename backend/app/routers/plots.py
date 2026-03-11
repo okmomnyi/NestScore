@@ -58,12 +58,17 @@ async def get_map_plots(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
-    redis = await get_redis()
     cache_key = "cache:plots:map"
-    cached = await redis.get(cache_key)
-    if cached:
-        data = json.loads(cached)
-        return [PlotMapResponse(**p) for p in data]
+
+    # Try to read from Redis cache first
+    try:
+        redis = await get_redis()
+        cached = await redis.get(cache_key)
+        if cached:
+            data = json.loads(cached)
+            return [PlotMapResponse(**p) for p in data]
+    except Exception:
+        redis = None  # Redis unavailable, skip caching
 
     result = await db.execute(
         select(
@@ -93,13 +98,17 @@ async def get_map_plots(
         for r in rows
     ]
 
-    # Cache for 60 seconds
-    await redis.setex(cache_key, 60, json.dumps([p.model_dump(mode="json") for p in plots]))
+    # Cache for 60 seconds if Redis is available
+    try:
+        if redis:
+            await redis.setex(cache_key, 60, json.dumps([p.model_dump(mode="json") for p in plots]))
+    except Exception:
+        pass  # Redis unavailable, skip caching
 
     return plots
 
 
-@router.get("/{plot_id}")
+@router.get("/{plot_id}", response_model=dict)
 async def get_plot(
     plot_id: uuid.UUID,
     page: int = Query(1, ge=1),

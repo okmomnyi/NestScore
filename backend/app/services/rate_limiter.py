@@ -31,50 +31,61 @@ async def check_rate_limit(
     now = time.time()
     window_start = now - window_seconds
 
-    async with redis.pipeline(transaction=True) as pipe:
-        # Remove expired entries
-        await pipe.zremrangebyscore(key, 0, window_start)
-        # Count current requests in window
-        await pipe.zcard(key)
-        # Add current request
-        await pipe.zadd(key, {str(now): now})
-        # Set expiry
-        await pipe.expire(key, window_seconds)
-        results = await pipe.execute()
+    async def do_check():
+        async with redis.pipeline(transaction=True) as pipe:
+            # Remove expired entries
+            await pipe.zremrangebyscore(key, 0, window_start)
+            # Count current requests in window
+            await pipe.zcard(key)
+            # Add current request
+            await pipe.zadd(key, {str(now): now})
+            # Set expiry
+            await pipe.expire(key, window_seconds)
+            results = await pipe.execute()
 
-    current_count = results[1]
+        current_count = results[1]
 
-    if current_count >= max_requests:
-        # Find oldest entry to calculate retry-after
-        oldest = await redis.zrange(key, 0, 0, withscores=True)
-        if oldest:
-            oldest_time = oldest[0][1]
-            retry_after = int(oldest_time + window_seconds - now) + 1
-        else:
-            retry_after = window_seconds
-        return False, retry_after
+        if current_count >= max_requests:
+            # Find oldest entry to calculate retry-after
+            oldest = await redis.zrange(key, 0, 0, withscores=True)
+            if oldest:
+                oldest_time = oldest[0][1]
+                retry_after = int(oldest_time + window_seconds - now) + 1
+            else:
+                retry_after = window_seconds
+            return False, retry_after
 
-    return True, 0
+        return True, 0
+
+    try:
+        return await do_check()
+    except Exception as e:
+        logger.warning(f"Redis connection failed in rate limiter: {e}. Falling back to allow.")
+        return True, 0
 
 
 async def check_admin_login(redis: Redis, ip_hash: str) -> Tuple[bool, int]:
     """Admin login rate limit with 30-minute lockout after 5 failed attempts."""
     lockout_key = f"rl:admin_lockout:{ip_hash}"
-    lockout = await redis.get(lockout_key)
-    if lockout:
-        ttl = await redis.ttl(lockout_key)
-        return False, max(ttl, 1)
+    try:
+        lockout = await redis.get(lockout_key)
+        if lockout:
+            ttl = await redis.ttl(lockout_key)
+            return False, max(ttl, 1)
 
-    allowed, retry_after = await check_rate_limit(
-        redis, "admin_login", ip_hash, *ADMIN_LOGIN_LIMIT
-    )
+        allowed, retry_after = await check_rate_limit(
+            redis, "admin_login", ip_hash, *ADMIN_LOGIN_LIMIT
+        )
 
-    if not allowed:
-        # Activate 30-minute lockout
-        await redis.setex(f"rl:admin_lockout:{ip_hash}", ADMIN_LOGIN_LOCKOUT, "1")
-        return False, ADMIN_LOGIN_LOCKOUT
+        if not allowed:
+            # Activate 30-minute lockout
+            await redis.setex(f"rl:admin_lockout:{ip_hash}", ADMIN_LOGIN_LOCKOUT, "1")
+            return False, ADMIN_LOGIN_LOCKOUT
 
-    return allowed, retry_after
+        return allowed, retry_after
+    except Exception as e:
+        logger.warning(f"Redis connection failed in admin login rate limiter: {e}. Falling back to allow.")
+        return True, 0
 
 
 async def record_review_submission(redis: Redis, ip_hash: str) -> Tuple[bool, int]:

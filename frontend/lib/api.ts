@@ -49,30 +49,30 @@ export const api = {
             if (params.min_stars !== undefined) searchParams.append('min_stars', params.min_stars.toString());
 
             const query = searchParams.toString();
-            return fetchApi<PaginatedPlots>(`/plots${query ? `?${query}` : ''}`);
+            return fetchApi<PaginatedPlots>(`/api/plots${query ? `?${query}` : ''}`);
         },
 
-        map: () => fetchApi<PlotMap[]>('/plots/map'),
+        map: () => fetchApi<PlotMap[]>('/api/plots/map'),
 
         get: (id: string, page: number = 1) =>
-            fetchApi<{ plot: Plot; reviews: PaginatedReviews }>(`/plots/${id}?page=${page}`),
+            fetchApi<{ plot: Plot; reviews: PaginatedReviews }>(`/api/plots/${id}?page=${page}`),
     },
 
     reviews: {
         submit: (data: { plot_id: string; stars: number; comment_text: string; fingerprint_hash: string; turnstile_token: string }) =>
-            fetchApi<{ id: string; publish_at: string }>('/reviews', {
+            fetchApi<{ id: string; publish_at: string }>('/api/reviews', {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
 
         flag: (reviewId: string, data: { reason: string; fingerprint_hash: string }) =>
-            fetchApi(`/reviews/${reviewId}/flag`, {
+            fetchApi(`/api/reviews/${reviewId}/flag`, {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
 
         disagree: (reviewId: string, data: { fingerprint_hash: string }) =>
-            fetchApi<{ detail: string, disagree_count: number }>(`/reviews/${reviewId}/disagree`, {
+            fetchApi<{ detail: string, disagree_count: number }>(`/api/reviews/${reviewId}/disagree`, {
                 method: 'POST',
                 body: JSON.stringify({ reason: 'disagree_vote', fingerprint_hash: data.fingerprint_hash }),
             }),
@@ -80,7 +80,7 @@ export const api = {
 
     suggestions: {
         submit: (data: { suggested_name: string; area: string; notes?: string; fingerprint_hash: string }) =>
-            fetchApi('/suggestions', {
+            fetchApi('/api/suggestions', {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
@@ -88,7 +88,7 @@ export const api = {
 
     disputes: {
         submit: (data: { plot_id: string; review_id: string; landlord_response_text: string }) =>
-            fetchApi('/disputes', {
+            fetchApi('/api/disputes', {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
@@ -96,7 +96,7 @@ export const api = {
 
     contact: {
         submit: (data: { subject: string; message: string; turnstile_token: string }) =>
-            fetchApi('/contact', {
+            fetchApi('/api/contact', {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),

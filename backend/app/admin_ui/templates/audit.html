@@ -1,37 +1,71 @@
 {% extends "base.html" %}
+{% block title %}Audit Log - NestScore Admin{% endblock %}
 {% block content %}
-<h1>Audit Log</h1>
-<div class="card" style="padding:0;">
-    <table>
-        <thead>
-            <tr>
-                <th>Action</th>
-                <th>Type</th>
-                <th>Target ID</th>
-                <th>Note</th>
-                <th>Timestamp</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in entries %}
-            <tr>
-                <td><span class="badge active">{{ entry.admin_action }}</span></td>
-                <td>{{ entry.target_type }}</td>
-                <td style="font-family:monospace;font-size:0.8rem;">{{ entry.target_id }}</td>
-                <td class="truncate">{{ entry.note or '—' }}</td>
-                <td>{{ entry.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="5" style="color:#64748b;text-align:center;padding:32px;">No audit entries.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div style="padding:16px;display:flex;gap:12px;">
-        {% if page > 1 %}<a href="?page={{ page - 1 }}" class="btn btn-neutral">← Previous</a>{% endif %}
-        <span style="line-height:32px;color:#64748b;">Page {{ page }} of {{ (total // 50) + 1 }}</span>
-        {% if page * 50 < total %}<a href="?page={{ page + 1 }}" class="btn btn-neutral">Next →</a>{% endif %}
-    </div>
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-white mb-2">Audit Log</h1>
+  <p class="text-slate-400">Track all administrative actions</p>
 </div>
+
+<div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-slate-800/50">
+        <tr class="border-b border-slate-700">
+          <th class="text-left py-4 px-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Action</th>
+          <th class="text-left py-4 px-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Type</th>
+          <th class="text-left py-4 px-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Target ID</th>
+          <th class="text-left py-4 px-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Note</th>
+          <th class="text-left py-4 px-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Timestamp</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-800">
+        {% for entry in entries %}
+        <tr class="hover:bg-slate-800/50 transition">
+          <td class="py-4 px-6">
+            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded">{{ entry.admin_action }}</span>
+          </td>
+          <td class="py-4 px-6 text-sm text-slate-300">{{ entry.target_type }}</td>
+          <td class="py-4 px-6 text-sm text-slate-400 font-mono truncate max-w-xs">{{ entry.target_id }}</td>
+          <td class="py-4 px-6 text-sm text-slate-400 truncate max-w-md">{{ entry.note or '—' }}</td>
+          <td class="py-4 px-6 text-sm text-slate-400">{{ entry.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" class="py-12 text-center">
+            <i data-lucide="file-text" class="w-16 h-16 mx-auto mb-3 text-slate-600"></i>
+            <p class="text-slate-500 text-sm">No audit entries</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Pagination -->
+  <div class="px-6 py-4 border-t border-slate-800 bg-slate-800/30 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      {% if page > 1 %}
+      <a href="?page={{ page - 1 }}" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm font-medium transition flex items-center gap-2">
+        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+        Previous
+      </a>
+      {% endif %}
+    </div>
+    
+    <span class="text-sm text-slate-400">Page {{ page }} of {{ (total // 50) + 1 }}</span>
+    
+    <div class="flex items-center gap-2">
+      {% if page * 50 < total %}
+      <a href="?page={{ page + 1 }}" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm font-medium transition flex items-center gap-2">
+        Next
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
 {% endblock %}

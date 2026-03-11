@@ -10,7 +10,7 @@ from app.middleware.audit import AuditLogMiddleware
 from app.middleware.security_headers import SecurityHeadersMiddleware
 from app.middleware.csrf import CSRFMiddleware
 from app.redis_client import close_redis, get_redis
-from app.routers import admin, disputes, health, plots, reviews, security
+from app.routers import admin, ai_endpoints, disputes, health, plots, reviews, security, suggestions
 from app.services.publisher import start_scheduler, stop_scheduler
 
 
@@ -36,18 +36,24 @@ app = FastAPI(
 limiter = Limiter(key_func=get_remote_address, default_limits=["60/minute"])
 app.state.limiter = limiter
 
-# ── Middleware ───────────────────────────────────────────────────────────────
 app.add_middleware(SlowAPIMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://0.0.0.0:3000",
+        "https://nestscore.co.ke",
+        "http://nestscore.co.ke"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"],
+)
 app.add_middleware(CSRFMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(AuditLogMiddleware)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://nestscore.co.ke"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
-)
 
 # ── Custom Error Handlers ("No as a Service") ────────────────────────────────
 from fastapi import HTTPException
@@ -87,4 +93,6 @@ app.include_router(security.router)
 app.include_router(plots.router)
 app.include_router(reviews.router)
 app.include_router(disputes.router)
+app.include_router(suggestions.router)
+app.include_router(ai_endpoints.router)
 app.include_router(admin.router)

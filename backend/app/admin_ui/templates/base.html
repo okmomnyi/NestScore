@@ -1,68 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NestScore Admin</title>
+  <title>{% block title %}NestScore Admin{% endblock %}</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Alpine.js for interactivity -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            success: { 500: '#10b981', 600: '#059669' },
+            warning: { 500: '#f59e0b', 600: '#d97706' },
+            danger: { 500: '#ef4444', 600: '#dc2626' },
+          }
+        }
+      }
+    }
+  </script>
+  
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
-    nav { background: #1e293b; padding: 12px 24px; display: flex; align-items: center; gap: 24px; border-bottom: 1px solid #334155; }
-    nav .brand { font-weight: 700; font-size: 1.1rem; color: #38bdf8; }
-    nav a { color: #94a3b8; text-decoration: none; font-size: 0.875rem; padding: 6px 12px; border-radius: 6px; transition: background .15s; }
-    nav a:hover { background: #334155; color: #e2e8f0; }
-    nav .spacer { flex: 1; }
-    main { padding: 32px 24px; max-width: 1200px; margin: 0 auto; }
-    h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 24px; color: #f1f5f9; }
-    h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: #cbd5e1; }
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
-    .stat { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; text-align: center; }
-    .stat .num { font-size: 2rem; font-weight: 700; color: #38bdf8; }
-    .stat .lbl { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
-    .stat a { text-decoration: none; color: inherit; display: block; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    th { text-align: left; padding: 10px 12px; color: #64748b; font-weight: 500; border-bottom: 1px solid #334155; }
-    td { padding: 10px 12px; border-bottom: 1px solid #1e293b; vertical-align: top; }
-    tr:hover td { background: #1e293b; }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500; }
-    .badge.pending { background: #1e3a5f; color: #38bdf8; }
-    .badge.active { background: #14532d; color: #4ade80; }
-    .badge.removed { background: #450a0a; color: #f87171; }
-    .badge.community_flagged { background: #431407; color: #fb923c; }
-    .badge.under_review { background: #422006; color: #fbbf24; }
-    .badge.disputed { background: #2e1065; color: #a78bfa; }
-    .btn { display: inline-block; padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; border: none; text-decoration: none; transition: opacity .15s; }
-    .btn:hover { opacity: 0.85; }
-    .btn-primary { background: #2563eb; color: white; }
-    .btn-danger { background: #dc2626; color: white; }
-    .btn-success { background: #16a34a; color: white; }
-    .btn-neutral { background: #475569; color: white; }
-    form.inline { display: inline; }
-    input, select, textarea { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem; width: 100%; }
-    label { font-size: 0.8rem; color: #94a3b8; display: block; margin-bottom: 4px; }
-    .form-row { margin-bottom: 14px; }
-    .truncate { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 0.875rem; }
-    .alert-warning { background: #422006; color: #fbbf24; border: 1px solid #92400e; }
+    [x-cloak] { display: none !important; }
+    .chart-container { position: relative; height: 300px; }
   </style>
 </head>
-<body>
-<nav>
-  <span class="brand">🏠 NestScore Admin</span>
-  <a href="{{ admin_path }}/">Dashboard</a>
-  <a href="{{ admin_path }}/reviews">Reviews</a>
-  <a href="{{ admin_path }}/plots">Plots</a>
-  <a href="{{ admin_path }}/disputes">Disputes</a>
-  <a href="{{ admin_path }}/suggestions">Suggestions</a>
-  <a href="{{ admin_path }}/audit">Audit Log</a>
-  <div class="spacer"></div>
-  <form method="post" action="{{ admin_path }}/logout" style="display:inline">
-    <button type="submit" class="btn btn-neutral">Logout</button>
-  </form>
-</nav>
-<main>
-  {% block content %}{% endblock %}
-</main>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-8">
+          <a href="{{ admin_path }}/" class="flex items-center gap-2 text-xl font-bold text-blue-400 hover:text-blue-300 transition">
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span>NestScore Admin</span>
+          </a>
+          <div class="hidden md:flex items-center gap-1">
+            <a href="{{ admin_path }}/" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+              <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+              Dashboard
+            </a>
+            <a href="{{ admin_path }}/reviews" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+              Reviews
+            </a>
+            <a href="{{ admin_path }}/plots" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i>
+              Plots
+            </a>
+            <a href="{{ admin_path }}/disputes" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+              Disputes
+            </a>
+            <a href="{{ admin_path }}/suggestions" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+              <i data-lucide="lightbulb" class="w-4 h-4"></i>
+              Suggestions
+            </a>
+            <a href="{{ admin_path }}/audit" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+              Audit Log
+            </a>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:block text-sm text-slate-400">
+            <i data-lucide="shield-check" class="w-4 h-4 inline"></i>
+            Admin
+          </div>
+          <form method="post" action="{{ admin_path }}/logout" class="inline">
+            <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-sm font-medium transition flex items-center gap-2">
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              Logout
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>

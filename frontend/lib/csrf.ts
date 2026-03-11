@@ -3,7 +3,7 @@ import { API_BASE_URL } from './constants';
 let csrfTokenPromise: Promise<string> | null = null;
 
 async function fetchCsrfToken(): Promise<string> {
-  const res = await fetch(`${API_BASE_URL}/csrf`, {
+  const res = await fetch(`${API_BASE_URL}/api/csrf`, {
     method: 'GET',
     credentials: 'include',
   });

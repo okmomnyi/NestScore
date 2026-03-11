@@ -17,7 +17,12 @@ export default function SuggestPlotPage() {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMsg, setErrorMsg] = useState('');
 
-    const isFormValid = name.length >= 3 && area && token;
+    const isTurnstileConfigured = TURNSTILE_SITE_KEY &&
+        TURNSTILE_SITE_KEY !== 'your-turnstile-site-key-here' &&
+        TURNSTILE_SITE_KEY !== '';
+
+    // Robust bypass: if not configured, we don't require the token for validation
+    const isFormValid = name.length >= 3 && area && (!isTurnstileConfigured || token);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -81,6 +86,7 @@ export default function SuggestPlotPage() {
                             className="w-full bg-[#0F172A] border border-[#334155] text-[#E2E8F0] rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-[#38BDF8]"
                             required
                         />
+                        {name.length > 0 && name.length < 3 && <p className="text-xs text-[#DC2626] mt-1 font-medium">Minimum 3 characters required.</p>}
                     </div>
 
                     <div>
@@ -104,12 +110,13 @@ export default function SuggestPlotPage() {
                         />
                     </div>
 
-                    <div className="bg-[#0F172A] p-4 rounded-xl border border-[#334155] overflow-hidden flex justify-center">
+                    <div className="bg-[#0F172A] p-4 rounded-xl border border-[#334155] overflow-hidden flex flex-col items-center">
                         <Turnstile
                             sitekey={TURNSTILE_SITE_KEY}
                             onVerify={(newToken) => setToken(newToken)}
                             theme="dark"
                         />
+                        {!token && isTurnstileConfigured && <p className="text-[10px] text-[#94A3B8] mt-2 font-medium">Security verification required.</p>}
                     </div>
 
                     {status === 'error' && (
@@ -121,9 +128,13 @@ export default function SuggestPlotPage() {
                     <button
                         type="submit"
                         disabled={!isFormValid || status === 'loading'}
-                        className="w-full bg-[#334155] hover:bg-[#475569] text-white font-bold py-4 px-6 rounded-lg transition-all disabled:opacity-50 flex justify-center items-center shadow-lg"
+                        className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold py-4 px-6 rounded-lg transition-all disabled:opacity-50 flex justify-center items-center shadow-lg font-space text-lg disabled:cursor-not-allowed"
                     >
-                        {status === 'loading' ? <Loader2 className="animate-spin" /> : "Submit Plot"}
+                        {status === 'loading' ? (
+                            <Loader2 className="animate-spin" />
+                        ) : (
+                            isFormValid ? "Submit Plot Proposal" : "Fill all required fields to submit"
+                        )}
                     </button>
                 </form>
             </div>

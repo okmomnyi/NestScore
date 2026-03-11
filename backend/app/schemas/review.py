@@ -11,6 +11,7 @@ class ReviewSubmit(BaseModel):
     comment_text: str = Field(..., min_length=80, max_length=2000)
     fingerprint_hash: str = Field(..., min_length=1, max_length=128)
     turnstile_token: str
+    nickname: str | None = Field(None, max_length=50)
 
 
 class ReviewSubmitResponse(BaseModel):

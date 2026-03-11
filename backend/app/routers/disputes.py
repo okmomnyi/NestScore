@@ -20,7 +20,7 @@ router = APIRouter(prefix="/api", tags=["Disputes & Contact"])
 SANITIZE_OPTS = {"tags": [], "attributes": {}}
 
 
-@router.post("/disputes", status_code=201)
+@router.post("/disputes", status_code=201, response_model=dict)
 async def submit_dispute(
     body: DisputeSubmit,
     request: Request,
@@ -69,24 +69,29 @@ async def submit_dispute(
     return {"id": str(dispute.id), "status": "published", "message": "Reply published successfully."}
 
 
-@router.post("/contact")
+@router.post("/contact", status_code=201, response_model=dict)
 async def submit_contact(
     body: ContactForm,
     request: Request,
     background_tasks: BackgroundTasks,
 ):
     raw_ip = request.client.host if request.client else "0.0.0.0"
-    redis = await get_redis()
 
     # Rate limit: 5 per IP per hour
     ip_hash = hash_ip(raw_ip, settings.IP_HASH_SALT)
-    allowed, retry_after = await record_contact_submission(redis, ip_hash)
-    if not allowed:
-        raise HTTPException(
-            status_code=429,
-            detail="Too many contact submissions. Please try again later.",
-            headers={"Retry-After": str(retry_after)},
-        )
+    try:
+        redis = await get_redis()
+        allowed, retry_after = await record_contact_submission(redis, ip_hash)
+        if not allowed:
+            raise HTTPException(
+                status_code=429,
+                detail="Too many contact submissions. Please try again later.",
+                headers={"Retry-After": str(retry_after)},
+            )
+    except HTTPException:
+        raise
+    except Exception:
+        pass  # Redis unavailable — skip rate limiting
 
     # Validate Turnstile
     valid = await turnstile.verify_turnstile_token(body.turnstile_token, raw_ip)

@@ -2,15 +2,16 @@ import { PaginatedPlots, PaginatedReviews, Plot, PlotMap } from "@/types";
 
 const isServer = typeof window === "undefined";
 export const API_BASE_URL = isServer
-  ? (process.env.INTERNAL_API_BASE_URL || "http://nestscore_backend:8000/api")
-  : (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001/api");
+  ? (process.env.INTERNAL_API_BASE_URL || "http://nestscore_backend:8000")
+  : (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001");
 export const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 export const ADS_ENABLED = process.env.NEXT_PUBLIC_ADS_ENABLED === "true";
 export const DEFAULT_MAP_CENTER: [number, number] = [-0.0530, 37.6560];
 export const DEFAULT_MAP_ZOOM = 14;
 export const PLOT_AREAS = [
+  "All",
   "Nchiru",
-  "Katheri",
-  "Campus-adjacent",
-  "Other"
+  "Kianjai", 
+  "Mascan",
+  "Kunene"
 ] as const;
