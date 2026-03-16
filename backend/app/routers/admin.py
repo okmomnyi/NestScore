@@ -308,6 +308,19 @@ async def admin_remove_plot(plot_id: uuid.UUID, request: Request, db: AsyncSessi
     return RedirectResponse(url=_get_admin_path() + "/plots", status_code=302)
 
 
+@router.post(_get_admin_path() + "/plots/{plot_id}/delete", include_in_schema=False)
+async def admin_delete_plot(plot_id: uuid.UUID, request: Request, db: AsyncSession = Depends(get_db), _=Depends(require_admin)):
+    plot = (await db.execute(select(Plot).where(Plot.id == plot_id))).scalar_one_or_none()
+    if not plot:
+        raise HTTPException(status_code=404)
+    
+    plot_name = plot.name
+    await db.delete(plot)
+    db.add(AuditLog(admin_action="plot_deleted_permanently", target_type="plot", target_id=plot_id, note=f"Permanently deleted: {plot_name}"))
+    await db.commit()
+    return RedirectResponse(url=_get_admin_path() + "/plots", status_code=302)
+
+
 # ── Disputes ─────────────────────────────────────────────────────────────────
 
 @router.get(_get_admin_path() + "/disputes", response_class=HTMLResponse, include_in_schema=False)
