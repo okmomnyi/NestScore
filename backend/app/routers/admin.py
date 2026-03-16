@@ -171,6 +171,13 @@ async def admin_dashboard(request: Request, db: AsyncSession = Depends(get_db), 
     )
     recent_audit = audit_result.scalars().all()
 
+    redis_status = "Connected"
+    try:
+        redis = await get_redis()
+        await redis.ping()
+    except Exception:
+        redis_status = "Offline"
+
     return templates.TemplateResponse("dashboard.html", {
         "request": request,
         "pending_count": pending_count,
@@ -181,6 +188,7 @@ async def admin_dashboard(request: Request, db: AsyncSession = Depends(get_db), 
         "total_plots": total_plots,
         "total_reviews": total_reviews,
         "recent_audit": recent_audit,
+        "redis_status": redis_status,
         "admin_path": _get_admin_path(),
     })
 

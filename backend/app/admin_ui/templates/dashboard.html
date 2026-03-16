@@ -137,7 +137,7 @@
       </div>
       <div class="flex items-center justify-between">
         <span class="text-sm text-slate-400">Redis Cache</span>
-        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-medium rounded">Offline</span>
+        <span class="px-2 py-1 {% if redis_status == 'Connected' %}bg-green-500/20 text-green-400{% else %}bg-yellow-500/20 text-yellow-400{% endif %} text-xs font-medium rounded">{{ redis_status }}</span>
       </div>
       <div class="flex items-center justify-between">
         <span class="text-sm text-slate-400">API Status</span>
