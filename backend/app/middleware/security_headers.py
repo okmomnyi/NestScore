@@ -23,11 +23,11 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         )
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cdn.jsdelivr.net; "
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; "
+            "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://unpkg.com https://www.googletagmanager.com; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com; "
             "font-src 'self' https://fonts.gstatic.com; "
             "frame-src https://challenges.cloudflare.com; "
             "img-src 'self' data: https://*.tile.openstreetmap.org https://fastapi.tiangolo.com; "
-            "connect-src 'self';"
+            "connect-src 'self' https://www.google-analytics.com;"
         )
         return response
