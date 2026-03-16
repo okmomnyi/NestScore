@@ -4,6 +4,7 @@ import './globals.css';
 import 'leaflet/dist/leaflet.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <meta name="csrf-token" content="nextjs-csrf-placeholder" />
       </head>
       <body className="min-h-screen flex flex-col antialiased bg-[#0F172A] text-[#F1F5F9]">
+        <GoogleAnalytics />
         <Header />
         <main className="flex-1 flex flex-col">
           {children}

@@ -26,6 +26,12 @@ class Settings(BaseSettings):
     # GEMINI_API_KEY is no longer required and is ignored if present.
     GEMINI_API_KEY: str = ""
 
+    # OpenRouter API (for AI-powered content generation)
+    OPENROUTER_API_KEY: str = ""
+
+    # Google Maps API (for location data and seeding)
+    GOOGLE_MAPS_API_KEY: str = ""
+
     # Cloudflare Turnstile
     CLOUDFLARE_TURNSTILE_SITE_KEY: str
     CLOUDFLARE_TURNSTILE_SECRET_KEY: str

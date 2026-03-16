@@ -126,11 +126,10 @@ async def admin_login(request: Request, response: Response):
     try:
         pw_hash = settings.ADMIN_PASSWORD_HASH.encode("utf-8")
         valid = bcrypt.checkpw(password.encode("utf-8"), pw_hash)
-    except (ValueError, Exception):
-        # Fallback: if bcrypt hash is corrupted (e.g. $ mangled by env parser),
-        # allow a dev-mode plaintext password check
-        if password == "admin123":
-            valid = True
+    except (ValueError, Exception) as e:
+        # Log the error for debugging but don't expose it to the user
+        print(f"Admin login error: {e}")
+        valid = False
 
     if not valid:
         return templates.TemplateResponse(
@@ -389,6 +388,119 @@ async def admin_audit(request: Request, page: int = 1, db: AsyncSession = Depend
     result = await db.execute(select(AuditLog).order_by(AuditLog.created_at.desc()).offset((page - 1) * per_page).limit(per_page))
     entries = result.scalars().all()
     return templates.TemplateResponse("audit.html", {"request": request, "entries": entries, "page": page, "total": total, "admin_path": _get_admin_path()})
+
+
+# ── Change Password ──────────────────────────────────────────────────────────
+
+@router.get(_get_admin_path() + "/change-password", response_class=HTMLResponse, include_in_schema=False)
+async def admin_change_password_page(request: Request, _=Depends(require_admin)):
+    return templates.TemplateResponse("change_password.html", {
+        "request": request,
+        "admin_path": _get_admin_path(),
+        "success": False,
+        "error": None,
+        "new_hash": None,
+    })
+
+
+@router.post(_get_admin_path() + "/change-password", include_in_schema=False)
+async def admin_change_password(request: Request, db: AsyncSession = Depends(get_db), _=Depends(require_admin)):
+    form = await request.form()
+    current_password = str(form.get("current_password", ""))
+    new_password = str(form.get("new_password", ""))
+    confirm_password = str(form.get("confirm_password", ""))
+
+    # Validate current password
+    valid = False
+    try:
+        pw_hash = settings.ADMIN_PASSWORD_HASH.encode("utf-8")
+        valid = bcrypt.checkpw(current_password.encode("utf-8"), pw_hash)
+    except (ValueError, Exception) as e:
+        print(f"Password verification error: {e}")
+        valid = False
+
+    if not valid:
+        return templates.TemplateResponse("change_password.html", {
+            "request": request,
+            "admin_path": _get_admin_path(),
+            "success": False,
+            "error": "Current password is incorrect.",
+            "new_hash": None,
+        })
+
+    # Validate new password
+    if len(new_password) < 8:
+        return templates.TemplateResponse("change_password.html", {
+            "request": request,
+            "admin_path": _get_admin_path(),
+            "success": False,
+            "error": "New password must be at least 8 characters long.",
+            "new_hash": None,
+        })
+
+    if new_password != confirm_password:
+        return templates.TemplateResponse("change_password.html", {
+            "request": request,
+            "admin_path": _get_admin_path(),
+            "success": False,
+            "error": "New password and confirmation do not match.",
+            "new_hash": None,
+        })
+
+    # Generate new bcrypt hash
+    new_hash = bcrypt.hashpw(new_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+    # Update .env file automatically
+    env_updated = False
+    env_path = "backend/.env" if not __file__.startswith("/app") else ".env"
+    try:
+        import os
+        # Try both possible paths
+        possible_paths = [".env", "backend/.env", "../.env"]
+        env_file_path = None
+        
+        for path in possible_paths:
+            if os.path.exists(path):
+                env_file_path = path
+                break
+        
+        if env_file_path:
+            with open(env_file_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Update the ADMIN_PASSWORD_HASH line
+            with open(env_file_path, 'w', encoding='utf-8') as f:
+                for line in lines:
+                    if line.strip().startswith('ADMIN_PASSWORD_HASH='):
+                        f.write(f'ADMIN_PASSWORD_HASH={new_hash}\n')
+                        env_updated = True
+                    else:
+                        f.write(line)
+            
+            # Update settings in memory (requires restart to fully apply)
+            settings.ADMIN_PASSWORD_HASH = new_hash
+    except Exception as e:
+        print(f"Failed to update .env file: {e}")
+        env_updated = False
+
+    # Log the password change
+    db.add(AuditLog(
+        admin_action="password_changed",
+        target_type="admin",
+        target_id=uuid.UUID("00000000-0000-0000-0000-000000000000"),
+        note=f"Admin password was changed. .env {'updated' if env_updated else 'update failed'}",
+    ))
+    await db.commit()
+
+    # Return success with the new hash
+    return templates.TemplateResponse("change_password.html", {
+        "request": request,
+        "admin_path": _get_admin_path(),
+        "success": True,
+        "error": None,
+        "new_hash": new_hash,
+        "env_updated": env_updated,
+    })
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────

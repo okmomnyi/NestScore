@@ -77,7 +77,47 @@ Access the app at `http://localhost:3000`.
 
 ## Admin Access
 
-The admin panel is accessible at `/manage` (configurable via `ADMIN_PATH`) and is protected by an **IP Allowlist** and encrypted session cookies. Ensure your IP is added to `ADMIN_IP_ALLOWLIST` in the `.env` file.
+The admin panel is accessible at `/manage` (configurable via `ADMIN_PATH`) and is protected by:
+- **IP Allowlist:** Add your IP to `ADMIN_IP_ALLOWLIST` in `.env`
+- **Password Authentication:** Default password is `admin123` (bcrypt hashed)
+- **Session Cookies:** 8-hour encrypted sessions
+
+### Admin Features
+- Dashboard with real-time statistics
+- Review moderation (approve/remove/clear flags)
+- Plot management (create/update/remove)
+- Dispute resolution
+- Plot suggestion approval
+- Audit log tracking
+- Bulk score recalculation
+
+### Changing Admin Password
+
+```bash
+cd backend
+python -c "import bcrypt; print(bcrypt.hashpw(b'your-new-password', bcrypt.gensalt()).decode())"
+```
+
+Copy the output and update `ADMIN_PASSWORD_HASH` in `.env`.
+
+## Google Analytics Setup
+
+1. Create a Google Analytics 4 property at [analytics.google.com](https://analytics.google.com)
+2. Get your Measurement ID (format: `G-XXXXXXXXXX`)
+3. Update `.env` files:
+   - Backend: `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX`
+   - Admin panel: Update `G-XXXXXXXXXX` in `backend/app/admin_ui/templates/base.html`
+
+### Tracked Events
+- Page views (automatic)
+- Review submissions
+- Plot views
+- Search queries
+- Dispute submissions
+- Suggestion submissions
+- Contact form submissions
+- Map interactions
+- Filter changes
 
 ---
 © 2026 NestScore Community.
