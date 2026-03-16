@@ -1,0 +1,422 @@
+KB-01 — What is NestScore?
+
+NestScore is a free, anonymous student housing rating platform dedicated
+to students at Meru University of Science and Technology (MUST) in Kenya.
+ 
+The platform exists because finding honest information about student
+housing near MUST is genuinely hard. Most students rely on word of mouth,
+which is unreliable and biased. NestScore gives every student — past and
+present — a place to share their real experience anonymously, so the next
+student can make a more informed decision before signing a lease.
+ 
+Tagline: 'Know your plot before you sign.'
+ 
+NestScore is operated by NestScore Community — an anonymous group of
+MUST students committed to housing transparency. The operators choose to
+remain anonymous to protect themselves from landlord pressure and to
+ensure the platform's neutrality is never compromised by personal
+relationships or interests.
+ 
+NestScore is not affiliated with MUST, with any landlord, or with any
+housing agency. It is an independent, student-driven platform.
+ 
+NestScore is free to use. There are no accounts, no sign-ups, and no
+personal information required from students.
+
+KB-02 — Mission and Purpose
+
+NestScore's mission is to give every MUST student the honest housing
+information they deserve before committing to a rental agreement.
+ 
+Three core goals:
+ 
+1. TRANSPARENCY — Surface honest, peer-sourced insights about plots
+   near MUST so students know what they are getting into before they pay
+   a deposit.
+ 
+2. ACCOUNTABILITY — Create a constructive public feedback loop that
+   motivates landlords to improve living standards. A landlord who knows
+   their property is being rated has an incentive to maintain it.
+ 
+3. SAFETY — Help students avoid unsafe, overpriced, or misrepresented
+   housing. A student who avoids a bad plot because of a NestScore
+   review is exactly the outcome the platform exists to enable.
+ 
+NestScore is not anti-landlord. Good landlords benefit from the platform
+because their quality shows up in ratings and students actively seek them
+out. The platform creates a genuine market incentive to improve standards.
+
+KB-03 — Anonymity and Student Privacy
+
+NestScore is built privacy-first. Here is exactly what the platform
+does and does not collect:
+ 
+WHAT IS NEVER COLLECTED:
+- Your name
+- Your student ID or registration number
+- Your email address
+- Your phone number
+- Your exact location
+- Any document or identifying file
+ 
+HOW ANONYMITY IS PROTECTED:
+NestScore uses technical measures to prevent duplicate or fake reviews
+without identifying who you are. These measures work in the background
+and do not store any personal information about you. The system can
+tell that a device has already reviewed a plot, but it cannot tell whose
+device it is or who is behind it.
+ 
+YOUR REVIEW IS YOUR OWN:
+Once submitted, your review is displayed anonymously. There is no
+account attached to it. No one — including the NestScore team — can
+trace a review back to a specific student.
+ 
+DATA PROTECTION:
+NestScore operates in compliance with the Kenya Data Protection Act 2019.
+Because no personal data is collected, there is very little to protect —
+which is the point. The safest data is data that was never collected.
+
+KB-04 — How Reviews Work
+
+SUBMITTING A REVIEW:
+Any student can submit a review for any plot listed on NestScore.
+You do not need an account. The process is:
+  1. Find the plot on the map or browse list
+  2. Open the plot's page
+  3. Select a star rating from 1 to 5
+  4. Write your review (minimum 80 characters, maximum 2000 characters)
+  5. Complete the security check
+  6. Submit
+ 
+WHAT HAPPENS AFTER YOU SUBMIT:
+Your review goes through a brief quality check before appearing publicly.
+This is to prevent spam and ensure the platform stays useful. Most
+legitimate reviews appear within a short period of submission.
+ 
+ONE REVIEW PER PLOT:
+You can only submit one review per plot. This is a platform integrity
+rule — it prevents the same person from flooding a plot with multiple
+ratings in either direction.
+ 
+REVIEWS ARE PERMANENT:
+Because NestScore has no accounts, there is no way to identify the
+author of a review after submission. This means reviews cannot be
+edited or deleted by the student who wrote them. Think carefully
+before you submit — make it count.
+ 
+WHAT MAKES A GOOD REVIEW:
+The most useful reviews are specific and honest. Tell future students
+what they actually need to know. Good things to include:
+  - Water availability and reliability
+  - Electricity and power outage frequency
+  - Security — gates, lighting, incidents
+  - Caretaker responsiveness
+  - Distance from MUST main gate
+  - Noise levels and neighbourhood feel
+  - Pest issues (cockroaches, rats, bedbugs)
+  - Value for money relative to the rent charged
+  - Anything you wish you had known before moving in
+ 
+WHAT NOT TO INCLUDE:
+  - The full name of any individual (landlord, caretaker, neighbour)
+  - Unverifiable factual claims stated as fact
+  - Offensive, hateful, or discriminatory language
+  - Anything unrelated to the housing experience
+  - Commercial promotions or advertising
+
+KB-05 — The Rating Score Explained
+
+Each plot on NestScore has a rating score displayed prominently on its
+page and on the map pin. Here is how to read it:
+ 
+STAR SCALE (1-5):
+  5 stars — Excellent. Students highly recommend this plot.
+  4 stars — Good. Minor issues but generally a solid choice.
+  3 stars — Mixed. Has both good and bad qualities. Read the reviews.
+  2 stars — Poor. Significant issues. Proceed with caution.
+  1 star  — Very poor. Students strongly advise against this plot.
+ 
+THE NESTSCORE WEIGHTED RATING:
+The score shown is not a simple average. NestScore uses a weighted
+system that accounts for the number of reviews a plot has received.
+This prevents a plot with only 2 or 3 reviews from appearing perfectly
+rated when there is not enough data to be confident.
+ 
+In plain terms: a plot needs a meaningful number of honest reviews
+before its score stabilises and reflects the true picture. A new plot
+with very few reviews will have its score adjusted toward the platform
+average until more data comes in.
+ 
+WHAT THE MAP COLOURS MEAN:
+  Green pin  — Weighted score 4.0 and above. Good to go.
+  Amber pin  — Weighted score 3.0 to 3.9. Mixed — read reviews.
+  Red pin    — Weighted score below 3.0. Exercise caution.
+  Grey pin   — No ratings yet. Be the first to review.
+  Pulsing pin — Score temporarily frozen. Under review for anomalies.
+ 
+RATING BREAKDOWN CHART:
+Each plot page shows a bar chart of how ratings are distributed across
+all five star levels. This tells you more than the average alone.
+A plot with mostly 5-star and 1-star ratings (bimodal distribution)
+tells a very different story from a plot where everyone gave 3 stars.
+
+KB-06 — Plot Listings and the Map
+
+WHAT IS A PLOT:
+On NestScore, 'plot' refers to any student rental property — bedsitters,
+single rooms, double rooms, hostels, and apartments — near MUST.
+The term is used in its common Kenyan student housing context.
+ 
+AREAS COVERED:
+NestScore currently covers the main student housing zones near MUST:
+  - Nchiru — the primary student housing corridor. Highest density of
+    bedsitters and single rooms. Most students live here.
+  - Katheri — secondary zone. Mix of hostels and private plots.
+    Slightly further from the MUST main gate.
+  - Campus-adjacent — plots within approximately 500 metres of the
+    MUST main gate. Higher rent but shortest walk to class.
+  - Kianjai, Mascan, Kunene — other nearby areas with student housing.
+ 
+THE INTERACTIVE MAP:
+The NestScore homepage shows an interactive map centred on MUST campus.
+Every listed plot appears as a colour-coded pin on the map.
+Click any pin to see the plot name, its rating, and a link to the full
+plot page with all reviews.
+ 
+BROWSING PLOTS:
+Below the map is a list of all plots sorted by weighted score.
+You can filter by area and by minimum star rating.
+The search bar filters both the map and the list simultaneously.
+ 
+WHY A PLOT IS LISTED:
+NestScore lists all known student plots near MUST regardless of whether
+the landlord wants to be listed. If students live there, it is listable.
+This is the same policy used by platforms like TripAdvisor and Google
+Reviews — a business cannot opt out of being reviewed.
+ 
+SUGGESTING A NEW PLOT:
+If you know of a student plot near MUST that is not yet on NestScore,
+you can suggest it using the suggestion form. The NestScore team reviews
+all suggestions before a plot goes live.
+
+KB-07 — Review Authenticity and Anti-Fraud
+
+NestScore takes review integrity seriously. The platform has multiple
+layers of protection against fake, manipulated, or spam reviews.
+The specific technical details of these protections are not disclosed —
+revealing them would help bad actors work around them.
+ 
+WHAT THE PLATFORM PROTECTS AGAINST:
+  - A landlord submitting fake 5-star reviews for their own property
+  - A competitor submitting fake 1-star reviews to damage a rival
+  - Bots submitting mass reviews automatically
+  - Coordinated groups artificially inflating or deflating ratings
+  - The same person submitting multiple reviews for the same plot
+ 
+HOW YOU CAN TELL IF SOMETHING LOOKS WRONG:
+If a plot's score appears suspicious, NestScore may display an
+'Under Review' badge. This means the platform has detected unusual
+rating activity and the score has been temporarily frozen pending
+investigation. The badge is transparent — students can see it and
+know to treat the current score with caution.
+ 
+WHY THE RATING SYSTEM IS TRUSTWORTHY:
+NestScore uses a weighted scoring formula that reduces the impact of
+plots with very few ratings. A landlord who gets 3 friends to submit
+5-star reviews will not see their plot jump to a perfect score.
+The system is designed to reward consistent, genuine, high-volume
+positive feedback — not gaming.
+ 
+PROFANITY AND QUALITY FILTERING:
+All reviews pass through content filters before publication.
+Low-quality, spammy, or harmful content is screened out automatically.
+This keeps the platform useful and legally compliant.
+
+KB-08 — Landlord Relations and the Dispute Process
+
+NESTSCORE IS FAIR TO LANDLORDS:
+The platform is not anti-landlord. It is pro-student-information.
+Good landlords benefit directly from NestScore — their quality shows
+up in ratings and students actively seek out well-rated plots.
+The platform creates a genuine market incentive to improve standards.
+ 
+LANDLORDS CANNOT OPT OUT:
+A landlord cannot request that their property be removed from NestScore.
+This is a core policy. If students live there, it is listable.
+This is how all major review platforms work.
+ 
+WHAT LANDLORDS CAN DO:
+Landlords who want to engage with the platform can:
+  1. CLAIM their plot — verify ownership and get a 'Landlord Active'
+     badge that shows students the landlord is engaged
+  2. FILE A DISPUTE on a specific review they believe is unfair or
+     inaccurate — their response is shown publicly next to the review
+     so students can see both sides
+ 
+HOW THE DISPUTE PROCESS WORKS:
+  Step 1 — Landlord claims the plot by verifying ownership
+  Step 2 — Landlord submits a dispute form for a specific review
+  Step 3 — A 'Dispute Filed' badge appears on that review
+  Step 4 — The landlord's response is shown alongside the review
+  Step 5 — NestScore reviews the dispute and either dismisses it or
+            takes action, with the outcome shown publicly
+ 
+KEY PRINCIPLE:
+Neither the review nor the landlord's response is removed by default.
+Both sides are shown publicly. Transparency is preserved.
+Students can read the review AND the landlord's response and decide
+for themselves what to believe.
+
+KB-09 — Reporting and Flagging Reviews
+
+FLAGGING A REVIEW:
+If you see a review that you believe violates NestScore's community
+guidelines, you can flag it using the flag button on that review.
+Flagging is anonymous.
+ 
+WHAT HAPPENS WHEN YOU FLAG:
+Flagged reviews are reviewed by the NestScore moderation system.
+If multiple students flag the same review, it may be temporarily
+hidden while being assessed. A badge is shown to make this visible.
+ 
+VALID REASONS TO FLAG:
+  - The review contains someone's full name
+  - The review contains hate speech or discriminatory content
+  - The review appears to be spam or advertising
+  - The review contains false factual claims stated as definite fact
+  - The review is clearly not about the housing experience
+ 
+WHAT FLAGGING IS NOT FOR:
+  - You disagree with the opinion expressed in the review
+  - The review is negative about your property or a property you like
+  - You want to silence a review you find inconvenient
+ 
+Flagging is for genuine policy violations, not for suppressing
+legitimate student opinions, however negative they may be.
+
+KB-10 — Legal Status and Compliance
+
+ARE REVIEWS LEGAL IN KENYA?
+Yes. Sharing honest opinions about products and services — including
+rental housing — is protected speech under Kenya's Constitution,
+specifically Article 33 (Freedom of Expression) and Article 34
+(Freedom of the Media and Freedom to Publish).
+ 
+Anonymous publishing is also legally protected. NestScore's operators
+choosing to remain anonymous is a legal and internationally recognised
+practice for accountability platforms.
+ 
+WHAT KEEPS REVIEWS LEGAL:
+NestScore reviews are legal because they are opinions and personal
+experiences, not unverifiable factual claims about named individuals.
+The platform enforces this through content rules:
+  - Reviews must describe the property experience, not individuals
+  - No full names of landlords, caretakers, or other individuals
+  - No defamatory factual claims stated as definitive fact
+  - Opinions and personal experiences are protected speech
+ 
+DATA PROTECTION:
+NestScore operates in compliance with the Kenya Data Protection Act 2019.
+No personal data as defined by the Act is collected from students.
+ 
+PLATFORM DISCLAIMER:
+NestScore hosts user-submitted opinions about rental properties.
+We do not verify individual claims. Content represents the personal
+views of anonymous student users, not NestScore Community or MUST.
+Property managers may formally dispute reviews via our dispute process.
+ 
+IF A LANDLORD THREATENS LEGAL ACTION:
+NestScore cannot provide legal advice to individual students.
+If you are personally threatened or harassed by a landlord in relation
+to a review, please consult a legal professional or contact the
+relevant Kenyan authorities.
+
+KB-11 — Community Guidelines (Full)
+
+WHAT MAKES A GREAT NESTSCORE REVIEW:
+ 
+DO include:
+  - Your honest overall experience living at or visiting the plot
+  - Specific details about water, electricity, security, cleanliness
+  - Distance and transport information (how far from MUST main gate,
+    available transport options, road condition in rainy season)
+  - Value for money — is the rent fair for what you get?
+  - What surprised you — good or bad — that you did not expect
+  - What you wish you had known before moving in
+  - Whether you would recommend this plot to a fellow student and why
+ 
+DO NOT include:
+  - The full name of any individual (landlord, caretaker, other tenants)
+  - Unverifiable factual accusations (e.g. 'the landlord is a thief'
+    — instead say 'I had issues with my deposit not being returned')
+  - Offensive, hateful, or discriminatory language of any kind
+  - Personal attacks on individuals
+  - Content completely unrelated to the housing experience
+  - Promotional content or advertising
+ 
+LENGTH GUIDELINES:
+  Minimum: 80 characters — enough to say something meaningful
+  Maximum: 2000 characters — enough to be thorough without rambling
+ 
+EXAMPLE OF A GOOD REVIEW:
+'Stayed here for two semesters. Water is available most days but
+cuts out for 2-3 days at a time every few weeks. Electricity has
+been reliable. Security is decent — there is a gate and a caretaker
+who lives on site. About a 15 minute walk to MUST main gate.
+Rent is 3500 per month for a bedsitter which is fair for the area.
+Main issue is the walls are thin so you hear everything from the
+next room. Overall not bad for the price.'
+ 
+EXAMPLE OF A REVIEW THAT WILL BE REJECTED:
+'John Ochieng the landlord is a scammer and a terrible person.'
+(Names an individual and makes an accusation, not a housing experience.)
+
+KB-12 — Frequently Asked Questions
+
+Q: Can I review a plot I visited but did not live in?
+A: Yes. If you have direct, firsthand knowledge of the property —
+   from visiting, staying briefly, or helping a friend move in —
+   your experience is valid and useful.
+ 
+Q: What if the plot I want to review is not listed?
+A: Use the 'Suggest a Plot' form. The NestScore team reviews all
+   suggestions and adds verified plots to the platform.
+ 
+Q: Can I change or delete my review?
+A: No. Because NestScore has no accounts, there is no way to verify
+   that a person requesting a change is the original author.
+   Reviews are permanent once published. Write carefully.
+ 
+Q: Can my landlord find out I wrote a review?
+A: No. NestScore does not collect your identity and displays no
+   identifying information on reviews. There is nothing to find.
+ 
+Q: Can a landlord remove a review they do not like?
+A: No. Landlords can dispute a review and have their response shown
+   publicly alongside it — but they cannot remove it.
+ 
+Q: My landlord threatened me. What do I do?
+A: NestScore cannot provide legal advice. If you feel threatened,
+   contact the relevant Kenyan authorities. The review you submitted
+   is protected speech and you submitted it anonymously.
+ 
+Q: How do I contact NestScore?
+A: Use the contact form on the platform. No email address is displayed
+   publicly. The team reads all contact form submissions.
+ 
+Q: Is NestScore affiliated with MUST?
+A: No. NestScore is completely independent. It is not run by or
+   affiliated with MUST, any student union, or any housing agency.
+ 
+Q: Is NestScore free?
+A: Yes. NestScore is and will always be free for students.
+ 
+Q: Why is a plot showing 'Under Review'?
+A: The platform detected unusual rating activity on that plot —
+   such as many reviews appearing very quickly, or ratings that
+   look coordinated. The score is temporarily frozen while the
+   situation is investigated. Treat that score with caution.
+ 
+Q: Can I review in Swahili or Sheng?
+A: Yes. Write in whatever language feels natural to you.
+   NestScore's content filters understand common Kenyan terms.

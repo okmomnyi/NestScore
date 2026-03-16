@@ -102,3 +102,8 @@ async def record_suggestion_submission(redis: Redis, fingerprint_hash: str) -> T
 
 async def record_flag_submission(redis: Redis, ip_hash: str) -> Tuple[bool, int]:
     return await check_rate_limit(redis, "flag", ip_hash, *FLAG_LIMIT)
+
+
+async def record_chat_submission(redis: Redis, ip_hash: str) -> Tuple[bool, int]:
+    """Chat rate limit: 20 questions per IP per hour"""
+    return await check_rate_limit(redis, "chat", ip_hash, 20, 3600)

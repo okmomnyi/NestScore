@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
+import ChatWidget from '@/components/chat/ChatWidget';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -40,6 +41,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
