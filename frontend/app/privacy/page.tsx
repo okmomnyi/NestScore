@@ -1,5 +1,7 @@
 import { Lock } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default function PrivacyPage() {
     return (
         <div className="container mx-auto px-4 py-12 max-w-3xl">

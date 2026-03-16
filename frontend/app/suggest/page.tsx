@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from 'react';
+
+export const dynamic = 'force-dynamic';
 import { api } from '@/lib/api';
 import { getFingerprintHash } from '@/lib/fingerprint';
 import { PLOT_AREAS } from '@/lib/constants';
