@@ -47,7 +47,7 @@ export default function PlotDetail({ plot, reviews }: { plot: Plot; reviews: any
                     <div className="flex flex-col">
                         <span className="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider mb-1">NestScore</span>
                         <span className="text-3xl font-bold font-space text-[#F1F5F9] leading-none">
-                            {isUnrated ? '—' : (plot.weighted_score ?? 0).toFixed(1)}
+                            {isUnrated ? '—' : Number(plot.weighted_score ?? 0).toFixed(1)}
                         </span>
                     </div>
                 </div>
