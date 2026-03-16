@@ -13,7 +13,7 @@ export const getPopupContent = (plot: PlotMap) => {
       
       <div class="flex items-center justify-between mb-4 bg-[#0F172A] rounded-lg p-2 border border-[#334155]">
         <div class="flex flex-col">
-          <span class="text-xl font-bold text-[#F1F5F9] leading-none">${isUnrated ? '—' : plot.weighted_score?.toFixed(1)}</span>
+          <span class="text-xl font-bold text-[#F1F5F9] leading-none">${isUnrated ? '—' : (plot.weighted_score ?? 0).toFixed(1)}</span>
         </div>
         <div class="flex items-center text-xs text-[#E2E8F0]">
           <span class="mr-1">★</span>

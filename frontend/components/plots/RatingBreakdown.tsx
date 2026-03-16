@@ -40,13 +40,13 @@ export default function RatingBreakdown({ weightedScore, totalRatings, reviews }
         <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-6 h-full flex flex-col justify-center">
             <div className="flex items-center gap-6 mb-6">
                 <div className="flex flex-col items-center">
-                    <span className="text-5xl font-bold font-space text-[#F1F5F9] tracking-tight">{weightedScore.toFixed(1)}</span>
+                    <span className="text-5xl font-bold font-space text-[#F1F5F9] tracking-tight">{(weightedScore ?? 0).toFixed(1)}</span>
                     <div className="flex mt-2 gap-1 px-1.5 py-1 bg-[#0F172A] rounded-lg">
                         {[1, 2, 3, 4, 5].map((s) => (
                             <Star
                                 key={s}
                                 size={14}
-                                className={s <= Math.round(weightedScore) ? "text-[#FBBF24] fill-[#FBBF24]" : "text-[#475569]"}
+                                className={s <= Math.round(weightedScore ?? 0) ? "text-[#FBBF24] fill-[#FBBF24]" : "text-[#475569]"}
                             />
                         ))}
                     </div>

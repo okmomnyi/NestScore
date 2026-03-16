@@ -38,7 +38,7 @@ export default function PlotCard({ plot, isHighlighted }: { plot: Plot; isHighli
                         getScoreColor(plot.weighted_score)
                     )}>
                         <span className="font-bold text-lg leading-none mb-0.5">
-                            {isUnrated ? '—' : plot.weighted_score?.toFixed(1)}
+                            {isUnrated ? '—' : (plot.weighted_score ?? 0).toFixed(1)}
                         </span>
                         <span className="text-[0.65rem] uppercase tracking-wider font-semibold opacity-80">
                             {isUnrated ? 'Unrated' : 'Score'}
