@@ -22,6 +22,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'NestScore — Know your plot before you sign',
   description: 'An anonymous student housing rating platform for Meru University of Science and Technology.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon-32x32.png',
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -33,6 +38,7 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable}`}>
       <head>
         <meta name="csrf-token" content="nextjs-csrf-placeholder" />
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
       </head>
       <body className="min-h-screen flex flex-col antialiased bg-[#0F172A] text-[#F1F5F9]">
         <GoogleAnalytics />
