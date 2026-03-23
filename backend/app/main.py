@@ -11,7 +11,7 @@ from app.middleware.security_headers import SecurityHeadersMiddleware
 from app.middleware.csrf import CSRFMiddleware
 from app.redis_client import close_redis, get_redis
 from app.routers import admin, ai_endpoints, disputes, health, plots, reviews, security, suggestions
-from app.chatbot import router as chatbot
+from app.chatbot.router import router as chatbot
 from app.services.publisher import start_scheduler, stop_scheduler
 
 
