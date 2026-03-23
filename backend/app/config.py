@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     NEXT_PUBLIC_API_BASE_URL: str = "http://localhost:8000"
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: str
     NEXT_PUBLIC_ADS_ENABLED: bool = False
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: str = ""
 
     # Scoring constants
     BAYESIAN_M: int = 10  # Minimum vote threshold

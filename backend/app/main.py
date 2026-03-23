@@ -18,12 +18,19 @@ from app.services.publisher import start_scheduler, stop_scheduler
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    await get_redis()
-    start_scheduler()
+    try:
+        await get_redis()
+        start_scheduler()
+    except Exception as e:
+        print(f"Warning: Could not connect to Redis: {e}")
+        print("Continuing without Redis - some features may be limited")
     yield
     # Shutdown
-    stop_scheduler()
-    await close_redis()
+    try:
+        stop_scheduler()
+        await close_redis()
+    except Exception:
+        pass
 
 
 app = FastAPI(
@@ -95,6 +102,6 @@ app.include_router(plots.router)
 app.include_router(reviews.router)
 app.include_router(disputes.router)
 app.include_router(suggestions.router)
-app.include_router(chatbot.router)
+app.include_router(chatbot)
 app.include_router(ai_endpoints.router)
 app.include_router(admin.router)
