@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { getCsrfToken } from "@/lib/csrf";
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,10 +21,12 @@ export default function ChatWidget() {
     setLoading(true);
 
     try {
+      const csrfToken = await getCsrfToken();
       const response = await fetch('/api/chat', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
         },
         body: JSON.stringify({ message: userMessage }),
       });
