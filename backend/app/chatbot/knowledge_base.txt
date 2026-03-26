@@ -12,10 +12,9 @@ student can make a more informed decision before signing a lease.
 Tagline: 'Know your plot before you sign.'
  
 NestScore is operated by NestScore Community — an anonymous group of
-MUST students committed to housing transparency. The operators choose to
-remain anonymous to protect themselves from landlord pressure and to
-ensure the platform's neutrality is never compromised by personal
-relationships or interests.
+MUST students committed to housing transparency. The team's identity is
+not disclosed to ensure the platform remains completely neutral and
+student-focused, free from any outside influence.
  
 NestScore is not affiliated with MUST, with any landlord, or with any
 housing agency. It is an independent, student-driven platform.
@@ -302,9 +301,9 @@ rental housing — is protected speech under Kenya's Constitution,
 specifically Article 33 (Freedom of Expression) and Article 34
 (Freedom of the Media and Freedom to Publish).
  
-Anonymous publishing is also legally protected. NestScore's operators
-choosing to remain anonymous is a legal and internationally recognised
-practice for accountability platforms.
+Anonymous publishing is also legally protected. Operating an
+accountability platform anonymously is a legal and internationally
+recognised practice.
  
 WHAT KEEPS REVIEWS LEGAL:
 NestScore reviews are legal because they are opinions and personal
