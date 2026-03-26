@@ -51,6 +51,8 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://0.0.0.0:3000",
+        "http://164.92.173.167:3000",
+        "http://164.92.173.167",
         "https://nestscore.co.ke",
         "http://nestscore.co.ke"
     ],
