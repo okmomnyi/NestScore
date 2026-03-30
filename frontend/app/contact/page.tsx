@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-
-export const dynamic = 'force-dynamic';
 import { api } from '@/lib/api';
 import { TURNSTILE_SITE_KEY } from '@/lib/constants';
 import Turnstile from 'react-turnstile';

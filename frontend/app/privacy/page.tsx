@@ -10,7 +10,7 @@ export default function PrivacyPage() {
                     <Lock className="text-[#38BDF8]" size={28} />
                 </div>
                 <h1 className="text-3xl font-bold font-space text-[#F1F5F9] mb-4">Privacy Policy</h1>
-                <p className="text-[#94A3B8]">Last Updated: {new Date().toLocaleDateString()}</p>
+                <p className="text-[#94A3B8]">Last Updated: {new Date().toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
 
             <div className="prose prose-invert prose-[#94A3B8] max-w-none bg-[#1E293B] border border-[#334155] rounded-xl p-8 font-dm leading-relaxed">

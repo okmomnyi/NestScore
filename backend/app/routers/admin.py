@@ -140,9 +140,8 @@ async def admin_login(request: Request, response: Response):
 
     token = _serializer.dumps("admin")
     redirect = RedirectResponse(url=_get_admin_path() + "/", status_code=302)
-    # secure=False for local HTTP development; set True in production behind HTTPS
     redirect.set_cookie(
-        SESSION_COOKIE, token, httponly=True, secure=False, samesite="lax", max_age=3600 * 8
+        SESSION_COOKIE, token, httponly=True, secure=True, samesite="lax", max_age=3600 * 8
     )
     return redirect
 

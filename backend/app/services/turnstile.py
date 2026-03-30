@@ -27,11 +27,6 @@ async def verify_turnstile_token(token: str, remote_ip: str | None = None) -> bo
         logger.warning("Turnstile verification bypassed: secret key not configured.")
         return True
     
-    # Additional bypass for development
-    if secret == "0x4AAAAAABnZt8Q2V8yKpZt2yQdJ8f4r_test_secret":
-        logger.warning("Turnstile verification bypassed: using test secret.")
-        return True
-
     payload = {
         "secret": secret,
         "response": token,
@@ -48,6 +43,4 @@ async def verify_turnstile_token(token: str, remote_ip: str | None = None) -> bo
     except Exception as e:
         logger.error(f"Turnstile verification failed: {e}")
         return False
-
-    return False
 

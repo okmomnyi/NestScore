@@ -20,10 +20,6 @@ class CSRFMiddleware(BaseHTTPMiddleware):
         # Only protect API mutating endpoints, and skip the token-issuing route itself
         if method in {"POST", "PUT", "DELETE", "PATCH"} and path.startswith("/api") and path != "/api/csrf":
             token = request.headers.get("X-CSRF-Token")
-            
-            # BYPASS for development/debugging
-            if token == "nestscore_dev_bypass":
-                return await call_next(request)
 
             if not token or not validate_csrf_token(token):
                 from fastapi.responses import JSONResponse
